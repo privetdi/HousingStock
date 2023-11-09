@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/HousingStock/static/js/main.89fa8722.js",
+    "main.js": "/HousingStock/static/js/main.fa7841d8.js",
     "index.html": "/HousingStock/index.html",
-    "main.89fa8722.js.map": "/HousingStock/static/js/main.89fa8722.js.map"
+    "main.fa7841d8.js.map": "/HousingStock/static/js/main.fa7841d8.js.map"
   },
   "entrypoints": [
-    "static/js/main.89fa8722.js"
+    "static/js/main.fa7841d8.js"
   ]
 }

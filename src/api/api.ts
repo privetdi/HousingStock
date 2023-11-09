@@ -1,32 +1,18 @@
-import { MyRequest } from "./interface"
+import { IRequest } from "./interface"
 
-interface BodyConfig {
+interface IBodyConfig {
     method: string;
     headers?: { [key: string]: string; }
 }
 
-export function debounce<T extends (...args: any[]) => void>(func: T, delay: number) {
-    let timeoutId: NodeJS.Timeout | null = null;
-    let lastCallTimestamp = 0;
-    return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
-        const now = Date.now();
-        if (!timeoutId || now - lastCallTimestamp >= delay) {
-            func.apply(this, args);
-            lastCallTimestamp = now;
-        }
-        clearTimeout(timeoutId!);
-        timeoutId = setTimeout(() => {
-            timeoutId = null;
-        }, delay);
-    };
-}
+
 
 export const api = async <TResponse = null, TParams = undefined>(
     url: string,
     { method = 'GET', headers = {
         'Content-Type': 'application/json',
         'accept': "application/json",
-    } }: BodyConfig,
+    } }: IBodyConfig,
     body?: TParams
 ): Promise<TResponse> => {
     const init: RequestInit = {
@@ -44,6 +30,6 @@ export const api = async <TResponse = null, TParams = undefined>(
     return data;
 }
 
-export const requestData: MyRequest = {
+export const requestData: IRequest = {
     accept: "application/json",
 };

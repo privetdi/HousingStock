@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { api, debounce, requestData } from "../api/api";
-import { IStreet, MyRequest, UserId } from "../api/interface";
+import { api, requestData } from "../api/api";
+import { IStreet, IRequest, IUserId } from "../api/interface";
 import Houses from "./Houses";
-
-export const PROXY = "https://dispex.org/api/vtest/";
-export const PROXYoff = "";
+import { debounce } from "../api/helpers";
 
 function Streets() {
   let [housingList, setHousingList] = useState<IStreet[] | []>([]);
@@ -17,7 +15,7 @@ function Streets() {
   const fetchDataStreetList = async () => {
     try {
       const response: IStreet[] = await api<IStreet[]>(
-        `${PROXY}Request/streets`,
+        `https://dispex.org/api/vtest/Request/streets`,
         { method: "GET" }
       );
       setHousingList(response);
@@ -28,11 +26,11 @@ function Streets() {
 
   const getUserId = async () => {
     try {
-      const response: UserId = await api<
-        UserId,
+      const response: IUserId = await api<
+        IUserId,
         { Name: string; Phone: number; Email: string }
       >(
-        `${PROXY}HousingStock/client`,
+        `https://dispex.org/api/vtest/HousingStock/client`,
         { method: "POST" },
         {
           Name: name,

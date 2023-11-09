@@ -16,11 +16,11 @@ export interface IAdress {
     name: string;
 }
 
-export interface MyRequest {
+export interface IRequest {
     accept: string;
 }
 
-export interface Housing {
+export interface IHousing {
     accounts: any[];
     addressId: number;
     streetId: number;
@@ -31,12 +31,12 @@ export interface Housing {
     clients: any[]
 }
 
-export interface UserId {
+export interface IUserId {
     id: number,
     result: string
 }
 
-export interface HouseUser {
+export interface IHouseUser {
     id: number,
     name: string,
     Phone: string,

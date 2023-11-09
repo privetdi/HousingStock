@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { api, requestData } from "../api/api";
-import { Housing, IStreet, MyRequest, UserId } from "../api/interface";
+import { IHousing, IStreet, IRequest } from "../api/interface";
 import HouseFlats from "./HouseFlats";
-import { PROXY } from "./Streets";
 
 function HousingStock({
   idStreet,
@@ -13,13 +12,13 @@ function HousingStock({
   idHouse: number;
   userId: string[];
 }) {
-  let [housingList, setHousingList] = useState<Housing[] | []>([]);
+  let [housingList, setHousingList] = useState<IHousing[] | []>([]);
   let [isOpenList, setIsOpenList] = useState<Boolean>(false);
 
   const fetchDataHousingList = async (idStreet: number, idHouse: number) => {
     try {
-      const response: Housing[] = await api<Housing[], MyRequest>(
-        `${PROXY}HousingStock?companyId=1&streetId=${idStreet}&houseId=${idHouse}`,
+      const response: IHousing[] = await api<IHousing[], IRequest>(
+        `https://dispex.org/api/vtest/HousingStock?companyId=1&streetId=${idStreet}&houseId=${idHouse}`,
         { method: "GET" }
       );
       setHousingList(response);

@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { api, debounce } from "../api/api";
-import { HouseUser, Housing } from "../api/interface";
-import { PROXY } from "./Streets";
+import { api } from "../api/api";
+import { IHouseUser, IHousing } from "../api/interface";
+import { debounce } from "../api/helpers";
 
-function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
+function HouseFlats({ item, userId }: { item: IHousing; userId: string[] }) {
   let [viewUserList, setViewUserList] = useState<Boolean>(true);
-  let [userHouseList, setUserHouseList] = useState<HouseUser[]>([]);
+  let [userHouseList, setUserHouseList] = useState<IHouseUser[]>([]);
 
   const fetchSetUserHouse = async (id: string, idHouse: number) => {
     try {
       const response = await api<null, { AddressId: number; ClientId: string }>(
-        `${PROXY}HousingStock/bind_client`,
+        `https://dispex.org/api/vtest/HousingStock/bind_client`,
         { method: "PUT" },
         { AddressId: idHouse, ClientId: id }
       );
@@ -20,8 +20,8 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
   };
   const fetchUserHouse = async (id: number) => {
     try {
-      const response: HouseUser[] = await api<HouseUser[]>(
-        `${PROXY}HousingStock/clients?addressId=${id}`,
+      const response: IHouseUser[] = await api<IHouseUser[]>(
+        `https://dispex.org/api/vtest/HousingStock/clients?addressId=${id}`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json-patch+json" },
@@ -34,8 +34,8 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
   };
   const fetchDeletUser = async (id: number) => {
     try {
-      const response: HouseUser[] = await api<HouseUser[]>(
-        `${PROXY}HousingStock/bind_client/${id}`,
+      const response: IHouseUser[] = await api<IHouseUser[]>(
+        `https://dispex.org/api/vtest/HousingStock/bind_client/${id}`,
         {
           method: "DELETE",
         }

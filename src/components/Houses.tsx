@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { IAdress, IStreet, MyRequest } from "../api/interface";
+import { IAdress, IStreet, IRequest } from "../api/interface";
 import { api, requestData } from "../api/api";
 import HousingStock from "./HousingStock";
-import { PROXY } from "./Streets";
 
 function Houses({ item, userId }: { item: IStreet; userId: string[] }) {
   let [listItem, setListItem] = useState<IAdress[] | []>([]);
@@ -10,7 +9,7 @@ function Houses({ item, userId }: { item: IStreet; userId: string[] }) {
   const fetchDataHousesList = async () => {
     try {
       const response: IAdress[] = await api<IAdress[]>(
-        `${PROXY}request/houses/${item.id}`,
+        `https://dispex.org/api/vtest/request/houses/${item.id}`,
         { method: "GET" }
       );
       setListItem(response);

@@ -79,12 +79,12 @@ function HouseFlats({ item, userId }: { item: IHousing; userId: string[] }) {
         </div>
         <div>
           <button onClick={() => debouncedGetHouseUsers(item.addressId)}>
-            список жильцов данного дома
+            список жильцов
           </button>
           {item.clients.length === 0
             ? userHouseList.map((item) => {
                 return (
-                  <div>
+                  <div style={{ display: "flex", border: "solid 1px grey" }}>
                     ФИО {item.name} id {item.id}
                     <button onClick={() => debouncedDelUser(item.id)}>
                       del
@@ -100,7 +100,7 @@ function HouseFlats({ item, userId }: { item: IHousing; userId: string[] }) {
             setViewUserList(!viewUserList);
           }}
         >
-          списко доступных жильцов на заселение
+          заселить жильцов
         </button>
         {!viewUserList
           ? userId.length !== 0

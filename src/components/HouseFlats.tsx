@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { api } from "../api/api";
+import { api, debounce } from "../api/api";
 import { HouseUser, Housing } from "../api/interface";
 import { PROXY } from "./Streets";
 
@@ -57,6 +57,11 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
   const delUser = (id: number) => {
     fetchDeletUser(id);
   };
+
+  const debounceSetHouseUser = debounce(setHouseUser, 5000);
+  const debouncedGetHouseUsers = debounce(getHouseUsers, 5000);
+  const debouncedDelUser = debounce(delUser, 5000);
+
   return (
     <div style={{ border: "solid 1px black" }}>
       <div
@@ -72,7 +77,7 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
           Ул {item.streetName} дом {item.houseId} кв {item.flat}
         </div>
         <div>
-          <button onClick={() => getHouseUsers(item.addressId)}>
+          <button onClick={() => debouncedGetHouseUsers(item.addressId)}>
             список жильцов
           </button>
           проживает users:{" "}
@@ -81,7 +86,9 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
                 return (
                   <div>
                     ФИО {item.name} id {item.id}
-                    <button onClick={() => delUser(item.id)}>del</button>
+                    <button onClick={() => debouncedDelUser(item.id)}>
+                      del
+                    </button>
                   </div>
                 );
               })
@@ -100,7 +107,7 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
             ? userId.map((user) => (
                 <button
                   key={user}
-                  onClick={() => setHouseUser(user, item.addressId)}
+                  onClick={() => debounceSetHouseUser(user, item.addressId)}
                 >
                   заселить ID{user}
                 </button>

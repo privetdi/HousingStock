@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { api, requestData } from "../api/api";
+import { api, debounce, requestData } from "../api/api";
 import { IStreet, MyRequest, UserId } from "../api/interface";
 import Houses from "./Houses";
 
@@ -47,15 +47,19 @@ function Streets() {
       console.error(error);
     }
   };
+
   const setUser = () => {
     getUserId();
     setShowInput(false);
   };
-
   const btnAddUser = (e: React.SyntheticEvent<EventTarget>) => {
     e.stopPropagation();
     setShowInput(true);
   };
+
+  const debouncedSetUser = debounce(setUser, 5000);
+  const debouncedBtnAddUser = debounce(btnAddUser, 5000);
+
   useEffect(() => {
     fetchDataStreetList();
   }, []);
@@ -72,7 +76,7 @@ function Streets() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <button onClick={btnAddUser} style={{ maxWidth: "250px" }}>
+      <button onClick={debouncedBtnAddUser} style={{ maxWidth: "250px" }}>
         add user
       </button>
       {isViewInput ? (
@@ -100,7 +104,7 @@ function Streets() {
               type="email"
               placeholder="email"
             ></input>
-            <button onClick={setUser}>set user</button>
+            <button onClick={debouncedSetUser}>set user</button>
           </div>
           ===================================================
         </div>

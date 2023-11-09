@@ -3,8 +3,8 @@ import { api, requestData } from "../api/api";
 import { IStreet, MyRequest, UserId } from "../api/interface";
 import Houses from "./Houses";
 
-export const PROXYoff = "https://dispex.org/api/vtest/";
-export const PROXY = "";
+export const PROXY = "https://dispex.org/api/vtest/";
+export const PROXYoff = "";
 
 function Streets() {
   let [housingList, setHousingList] = useState<IStreet[] | []>([]);

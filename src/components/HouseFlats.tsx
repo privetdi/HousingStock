@@ -5,12 +5,13 @@ import { PROXY } from "./Streets";
 
 function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
   let [viewUserList, setViewUserList] = useState<Boolean>(true);
+  let [userHouseList, setUserHouseList] = useState<HouseUser[]>([]);
 
   const fetchSetUserHouse = async (id: string, idHouse: number) => {
     try {
       const response = await api<null, { AddressId: number; ClientId: string }>(
-        `${PROXY}HousingStock/client`,
-        { method: "POST" },
+        `${PROXY}HousingStock/bind_client`,
+        { method: "PUT" },
         { AddressId: idHouse, ClientId: id }
       );
     } catch (error) {
@@ -26,19 +27,38 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
           headers: { "Content-Type": "application/json-patch+json" },
         }
       );
+      setUserHouseList(response);
     } catch (error) {
       console.error(error);
     }
   };
+  const fetchDeletUser = async (id: number) => {
+    try {
+      const response: HouseUser[] = await api<HouseUser[]>(
+        `${PROXY}HousingStock/bind_client/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+    const newArr = userHouseList.filter((item) => item.id !== id);
+    setUserHouseList(newArr);
+  };
 
   const setHouseUser = (idUser: string, idHouse: number) => {
     fetchSetUserHouse(idUser, idHouse);
+    fetchUserHouse(idHouse);
   };
   const getHouseUsers = (id: number) => {
     fetchUserHouse(id);
   };
+  const delUser = (id: number) => {
+    fetchDeletUser(id);
+  };
   return (
-    <div>
+    <div style={{ border: "solid 1px black" }}>
       <div
         onClick={(e) => e.stopPropagation()}
         key={item.addressId}
@@ -55,7 +75,17 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
           <button onClick={() => getHouseUsers(item.addressId)}>
             список жильцов
           </button>
-          проживает users: {item.clients.length === 0 ? 0 : item.clients.length}{" "}
+          проживает users:{" "}
+          {item.clients.length === 0
+            ? userHouseList.map((item) => {
+                return (
+                  <div>
+                    ФИО {item.name} id {item.id}
+                    <button onClick={() => delUser(item.id)}>del</button>
+                  </div>
+                );
+              })
+            : item.clients.length}{" "}
         </div>
 
         <button

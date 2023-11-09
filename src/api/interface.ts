@@ -16,13 +16,9 @@ export interface IAdress {
     name: string;
 }
 
-
-
-
 export interface MyRequest {
     accept: string;
 }
-
 
 export interface Housing {
     accounts: any[];
@@ -35,16 +31,14 @@ export interface Housing {
     clients: any[]
 }
 
-
 export interface UserId {
     id: number,
     result: string
 }
 
-
 export interface HouseUser {
     id: number,
-    Name: string,
+    name: string,
     Phone: string,
     Email: string,
     BindId: number

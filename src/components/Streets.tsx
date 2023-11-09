@@ -11,7 +11,7 @@ function Streets() {
   let [name, setName] = useState<string>("");
   let [email, setEmail] = useState<string>("");
   let [phone, setPhone] = useState<number>(0);
-  let [userId, setUserId] = useState<string[]>(["5", "6", "888"]);
+  let [userId, setUserId] = useState<string[]>([]);
   let [isViewInput, setShowInput] = useState<boolean>(false);
 
   const fetchDataStreetList = async () => {
@@ -72,32 +72,36 @@ function Streets() {
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
-      <button onClick={btnAddUser}>add user</button>
+      <button onClick={btnAddUser} style={{ maxWidth: "250px" }}>
+        add user
+      </button>
       {isViewInput ? (
         <div>
           ======================New User======================
-          <input
-            onChange={(e) => {
-              onChangeName(e);
-            }}
-            type="text"
-            placeholder="name"
-          ></input>
-          <input
-            onChange={(e) => {
-              onChangePhone(e);
-            }}
-            type="phone"
-            placeholder="phone"
-          ></input>
-          <input
-            onChange={(e) => {
-              onChangeEmail(e);
-            }}
-            type="email"
-            placeholder="email"
-          ></input>
-          <button onClick={setUser}>set user</button>
+          <div>
+            <input
+              onChange={(e) => {
+                onChangeName(e);
+              }}
+              type="text"
+              placeholder="name"
+            ></input>
+            <input
+              onChange={(e) => {
+                onChangePhone(e);
+              }}
+              type="phone"
+              placeholder="phone"
+            ></input>
+            <input
+              onChange={(e) => {
+                onChangeEmail(e);
+              }}
+              type="email"
+              placeholder="email"
+            ></input>
+            <button onClick={setUser}>set user</button>
+          </div>
           ===================================================
         </div>
       ) : null}

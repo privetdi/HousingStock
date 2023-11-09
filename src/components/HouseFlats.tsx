@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { api } from "../api/api";
 import { IHouseUser, IHousing } from "../api/interface";
-import { debounce } from "../api/helpers";
+import { debounce } from "../helpers/helpers";
 
 function HouseFlats({ item, userId }: { item: IHousing; userId: string[] }) {
   let [viewUserList, setViewUserList] = useState<Boolean>(true);

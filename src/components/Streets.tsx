@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { api, requestData } from "../api/api";
 import { IStreet, IRequest, IUserId } from "../api/interface";
 import Houses from "./Houses";
-import { debounce } from "../api/helpers";
+import { debounce } from "../helpers/helpers";
 
 function Streets() {
   let [housingList, setHousingList] = useState<IStreet[] | []>([]);

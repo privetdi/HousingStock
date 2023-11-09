@@ -5,8 +5,6 @@ interface IBodyConfig {
     headers?: { [key: string]: string; }
 }
 
-
-
 export const api = async <TResponse = null, TParams = undefined>(
     url: string,
     { method = 'GET', headers = {

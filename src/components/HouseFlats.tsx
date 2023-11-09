@@ -63,12 +63,13 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
   const debouncedDelUser = debounce(delUser, 5000);
 
   return (
-    <div style={{ border: "solid 1px black" }}>
+    <div style={{ border: "solid 1px black", width: "180px" }}>
       <div
         onClick={(e) => e.stopPropagation()}
         key={item.addressId}
         style={{
           marginLeft: "20px",
+          marginRight: "20px",
           display: "flex",
           flexDirection: "column",
         }}
@@ -78,9 +79,8 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
         </div>
         <div>
           <button onClick={() => debouncedGetHouseUsers(item.addressId)}>
-            список жильцов
+            список жильцов данного дома
           </button>
-          проживает users:{" "}
           {item.clients.length === 0
             ? userHouseList.map((item) => {
                 return (
@@ -100,7 +100,7 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
             setViewUserList(!viewUserList);
           }}
         >
-          заселить user
+          списко доступных жильцов на заселение
         </button>
         {!viewUserList
           ? userId.length !== 0
@@ -112,7 +112,7 @@ function HouseFlats({ item, userId }: { item: Housing; userId: string[] }) {
                   заселить ID{user}
                 </button>
               ))
-            : "Пользователей не найдено"
+            : "Жильцы не найдены, нажмите add user для добавления пользователей в список"
           : null}
       </div>
     </div>

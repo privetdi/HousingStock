@@ -5,7 +5,6 @@ interface BodyConfig {
     headers?: { [key: string]: string; }
 }
 
-
 export function debounce<T extends (...args: any[]) => void>(func: T, delay: number) {
     let timeoutId: NodeJS.Timeout | null = null;
     let lastCallTimestamp = 0;
@@ -21,13 +20,6 @@ export function debounce<T extends (...args: any[]) => void>(func: T, delay: num
         }, delay);
     };
 }
-
-
-
-
-
-
-
 
 export const api = async <TResponse = null, TParams = undefined>(
     url: string,
